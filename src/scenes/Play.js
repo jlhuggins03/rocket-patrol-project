@@ -7,19 +7,19 @@ class Play extends Phaser.Scene {
         //load images or tile sprites
         this.load.image('rocket','./assets/rocket.png');
         this.load.image('spaceship','./assets/spaceship.png');
-        this.load.image('sky','./assets/sky.png');
+        this.load.image('starfield','./assets/starfield.png');
         //load spritesheet
-        this.load.spritesheet('explosion', './assets/bluedragon.png', {
-            frameWidth: 108,
-            frameHeight: 68,
+        this.load.spritesheet('explosion', './assets/explosion.png', {
+            frameWidth: 64,
+            frameHeight: 32,
             startFrame: 0,
-            endframe: 7
+            endframe: 9
         });
     }
 
     create() {
-        //sky layer comes first.
-        this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'sky').setOrigin(0, 0);
+        //starfield layer comes first.
+        this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'starfield').setOrigin(0, 0);
 
        // green UI background
        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
@@ -48,10 +48,10 @@ class Play extends Phaser.Scene {
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', {
                 start: 0,
-                end: 7,
+                end: 9,
                 first:0
             }),
-            framerate:3
+            framerate:30
        });
 
        //initialize score
@@ -95,7 +95,7 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
 
-        this.sky.tilePositionX -= starSpeed;
+        this.starfield.tilePositionX -= starSpeed;
 
         if (!this.gameOver) {
             this.p1Rocket.update(); //update rocket sprite
